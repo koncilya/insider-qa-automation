@@ -1,7 +1,6 @@
 """
 QA Careers Page Object for Insider website
 """
-import time
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
@@ -28,17 +27,11 @@ class QACareersPage(BasePage):
     JOB_ITEM_FIRST = (By.CLASS_NAME, "position-list .position-list-item:first-child")
     
     # Job detail locators
-    JOB_POSITION = (By.XPATH, ".//h3[contains(@class, 'title') or contains(@class, 'position')] | .//div[contains(@class, 'title')]")
-    JOB_DEPARTMENT = (By.XPATH, ".//div[contains(@class, 'department') or contains(@class, 'team')]")
-    JOB_LOCATION = (By.XPATH, ".//div[contains(@class, 'location') or contains(@class, 'place')]")
     VIEW_ROLE_BUTTON = (By.XPATH, ".//a[contains(text(), 'View Role') or contains(@class, 'apply') or contains(@class, 'view')]")
-    PAGINATE_BUTTON = (By.XPATH, "//*[@id=\"pagination\"]/div/div/div[2]/ul/div/button[2]")
 
     # Page verification
     PAGE_TITLE_CONTAINS = "Quality Assurance"
     URL_CONTAINS = "/careers/quality-assurance"
-
-    APPLICATION_CARD = (By.XPATH, "//*[@id=\"jobs-list\"]/div[1]/div")
     
     def __init__(self, driver):
         """Initialize QACareersPage with driver"""
@@ -158,73 +151,7 @@ class QACareersPage(BasePage):
         except Exception as e:
             print(f"Error getting job item: {e}")
             return []
-    
-    def verify_job_details(self, job_item):
-        """
-        Verify job details for a specific job item
-        
-        Args:
-            job_item: WebElement representing a job item
-            
-        Returns:
-            dict: Dictionary with verification results
-        """
-        try:
-            # Get job details
-            position = job_item.find_element(*self.JOB_POSITION).text.strip()
-            department = job_item.find_element(*self.JOB_DEPARTMENT).text.strip()
-            location = job_item.find_element(*self.JOB_LOCATION).text.strip()
-            
-            # Verify details
-            position_correct = TEST_DEPARTMENT in position
-            department_correct = TEST_DEPARTMENT in department
-            location_correct = TEST_LOCATION in location
-            
-            return {
-                'position_correct': position_correct,
-                'department_correct': department_correct,
-                'location_correct': location_correct,
-                'position': position,
-                'department': department,
-                'location': location
-            }
-        except Exception as e:
-            print(f"Error verifying job details: {e}")
-            return {
-                'position_correct': False,
-                'department_correct': False,
-                'location_correct': False,
-                'position': 'N/A',
-                'department': 'N/A',
-                'location': 'N/A'
-            }
-    
-    def verify_all_jobs(self):
-        """
-        Verify all jobs in the list meet the requirements
-        
-        Returns:
-            bool: True if all jobs are verified, False otherwise
-        """
-        job_items = self.get_job_items()
-        if not job_items:
-            print("No job items found")
-            return False
-        
-        all_verified = True
-        for i, job_item in enumerate(job_items):
-            print(f"\nVerifying job {i+1}:")
-            verification = self.verify_job_details(job_item)
-            
-            print(f"Position: {verification['position']} - {'✓' if verification['position_correct'] else '✗'}")
-            print(f"Department: {verification['department']} - {'✓' if verification['department_correct'] else '✗'}")
-            print(f"Location: {verification['location']} - {'✓' if verification['location_correct'] else '✗'}")
-            
-            if not all([verification['position_correct'], verification['department_correct'], verification['location_correct']]):
-                all_verified = False
-        
-        return all_verified
-    
+
     def click_view_role_button(self, job_item):
         """
         Click View Role button for a specific job item
@@ -237,24 +164,6 @@ class QACareersPage(BasePage):
             view_role_button.click()
         except Exception as e:
             print(f"Error clicking View Role button: {e}")
-    
-    def get_page_title(self):
-        """
-        Get the page title
-        
-        Returns:
-            str: Page title
-        """
-        return super().get_page_title()
-    
-    def get_current_url(self):
-        """
-        Get current URL
-        
-        Returns:
-            str: Current URL
-        """
-        return super().get_current_url()
 
     def hover_over_application_card(self, element):
         """Hover over the Company menu"""

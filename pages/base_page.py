@@ -3,9 +3,7 @@ Base Page Object class that provides common functionality
 """
 
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
-from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 
 from utils.screenshot_utils import wait_for_element, wait_for_element_clickable, scroll_to_element

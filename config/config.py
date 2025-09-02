@@ -2,7 +2,6 @@
 Configuration settings for the Insider Test Automation project
 """
 
-import os
 from pathlib import Path
 
 # Base URLs
@@ -11,7 +10,7 @@ CAREERS_URL = f"{BASE_URL}/careers"
 QA_CAREERS_URL = f"{BASE_URL}/careers/quality-assurance"
 
 # Browser Configuration
-BROWSER = "chrome"  # Options: chrome, firefox, edge
+BROWSER = "chrome"
 HEADLESS = True
 IMPLICIT_WAIT = 10
 PAGE_LOAD_TIMEOUT = 30
@@ -34,5 +33,3 @@ REPORT_DIR.mkdir(exist_ok=True)
 
 # Browser Driver Paths (will be auto-managed by webdriver-manager)
 CHROME_DRIVER_PATH = None
-FIREFOX_DRIVER_PATH = None
-EDGE_DRIVER_PATH = None

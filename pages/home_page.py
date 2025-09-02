@@ -88,4 +88,5 @@ class HomePage(BasePage):
 
 
     def accept_cookie(self):
+        """Accept cookie"""
         self.click_element(self.COOKIE_ACCEPT_BUTTON)

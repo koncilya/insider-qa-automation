@@ -2,15 +2,11 @@
 Utility functions for taking screenshots
 """
 
-import os
 from datetime import datetime
-from pathlib import Path
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-
 from config.config import SCREENSHOT_DIR
-
 
 def take_screenshot(driver, test_name):
     """
@@ -93,4 +89,4 @@ def scroll_to_element(driver, element):
         element: WebElement to scroll to
     """
     driver.execute_script("arguments[0].scrollIntoView(true);", element)
-    driver.execute_script("window.scrollBy(0, -100);")  # Scroll up a bit to avoid header overlap
+    driver.execute_script("window.scrollBy(0, -100);")
