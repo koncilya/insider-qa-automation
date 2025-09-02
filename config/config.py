@@ -23,13 +23,6 @@ REPORT_DIR = Path("reports")
 TEST_LOCATION = "Istanbul, Turkiye"
 TEST_DEPARTMENT = "Quality Assurance"
 
-# Locator Timeouts
-EXPLICIT_WAIT = 10
-POLLING_FREQUENCY = 0.5
-
 # Ensure directories exist
 SCREENSHOT_DIR.mkdir(exist_ok=True)
 REPORT_DIR.mkdir(exist_ok=True)
-
-# Browser Driver Paths (will be auto-managed by webdriver-manager)
-CHROME_DRIVER_PATH = None
