@@ -46,16 +46,20 @@ class BasePage:
         """
         return self.driver.find_elements(*locator)
     
-    def click_element(self, locator):
+    def click_element(self, locator, timeout = 10):
         """
         Click on an element
-        
+
         Args:
             locator: Element locator tuple (By, value)
+            timeout: Timeout for click
         """
-        element = wait_for_element_clickable(self.driver, locator)
-        scroll_to_element(self.driver, element)
-        element.click()
+        try:
+            element = wait_for_element_clickable(self.driver, locator, timeout)
+            scroll_to_element(self.driver, element)
+            element.click()
+        except Exception as e:
+            raise Exception(f"Failed to click element {locator}: {e}")
     
     def send_keys_to_element(self, locator, text):
         """
@@ -166,6 +170,6 @@ class BasePage:
         select = Select(dropdown)
         select.select_by_visible_text(option_text)
 
-    def scroll_to_down(self):
+    def scroll_down(self):
         self.driver.execute_script("window.scrollTo(0, 600);")
 

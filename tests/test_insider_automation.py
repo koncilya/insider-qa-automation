@@ -3,6 +3,8 @@ Test cases for Insider Test Automation project
 """
 import time
 
+import pytest
+
 from pages.home_page import HomePage
 from pages.careers_page import CareersPage
 from pages.qa_careers_page import QACareersPage
@@ -11,7 +13,8 @@ from config.config import TEST_LOCATION, TEST_DEPARTMENT
 
 class TestInsiderAutomation:
     """Test class for Insider automation test cases"""
-    
+
+    @pytest.mark.home_page
     def test_01_home_page_opened(self, driver):
         """
         Test Case 1: Visit https://useinsider.com/ and check Insider home page is opened or not
@@ -21,7 +24,8 @@ class TestInsiderAutomation:
         is_home_page_opened = home_page.is_home_page_opened()
 
         assert is_home_page_opened, "Insider home page is not opened"
-    
+
+    @pytest.mark.carreers_page
     def test_02_careers_page_sections(self, driver):
         """
         Test Case 2: Select the "Company" menu in the navigation bar, select "Careers" 
@@ -41,7 +45,8 @@ class TestInsiderAutomation:
         all_sections_visible = careers_page.are_all_sections_visible()
 
         assert all_sections_visible, "Not all required sections are visible on Careers page"
-    
+
+    @pytest.mark.carreers_page
     def test_03_qa_jobs_filtering(self, driver):
         """
         Test Case 3: Go to https://useinsider.com/careers/quality-assurance/, 
@@ -65,7 +70,8 @@ class TestInsiderAutomation:
 
         job_list_present = qa_careers_page.is_job_list_present()
         assert job_list_present, "Job list is not present after filtering"
-    
+
+    @pytest.mark.carreers_page
     def test_04_job_details_verification(self, driver):
         """
         Test Case 4: Check that all jobs' Position contains "Quality Assurance", 
@@ -87,7 +93,7 @@ class TestInsiderAutomation:
         job_items = qa_careers_page.get_job_items()
         assert len(job_items) > 0, "No job items found to test"
 
-        qa_careers_page.scroll_to_down()
+        qa_careers_page.scroll_down()
         time.sleep(2)
 
         departments = []
@@ -101,8 +107,7 @@ class TestInsiderAutomation:
         assert len(departments) == len(job_items), "Departments do not match job items"
         assert len(locations) == len(job_items), "Locations do not match job items"
 
-
-    
+    @pytest.mark.carreers_page
     def test_05_lever_application_redirection(self, driver):
         """
         Test Case 5: Click the "View Role" button and check that this action 
@@ -123,7 +128,7 @@ class TestInsiderAutomation:
         assert len(job_items) > 0, "No job items found to test"
         first_job = job_items[0]
 
-        qa_careers_page.scroll_to_down()
+        qa_careers_page.scroll_down()
 
         qa_careers_page.hover_over_application_card(first_job)
         time.sleep(2)
