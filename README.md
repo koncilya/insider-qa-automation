@@ -40,7 +40,7 @@ The framework uses the Page Object Model (POM) design pattern for maintainable a
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone <git@github.com:koncilya/insider-qa-automation.git>
 cd automation-case
 ```
 
